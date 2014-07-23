@@ -1,11 +1,3 @@
-/*
- * @(#)GXT2EntryPoint.java, 23.07.2014
- *
- *  Werum Software & Systems CIS AG
- *  Wulf-Werum-Straße 3
- *  21337 Lüneburg
- *
- */ 
 package de.fleischer.gxt2.client;
 
 import java.util.ArrayList;
