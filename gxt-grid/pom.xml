@@ -71,12 +71,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-help-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>2.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.1</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
@@ -86,7 +86,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
+				<version>2.6</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 					<outputDirectory>${project.build.outputDirectory}</outputDirectory>
@@ -95,7 +95,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>2.5</version>
 				<executions>
 					<execution>
 						<id>make-a-jar</id>
@@ -109,6 +109,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.1</version>
 				<executions>
 					<execution>
 						<phase>install</phase>
@@ -153,7 +154,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>2.4</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -166,5 +167,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
