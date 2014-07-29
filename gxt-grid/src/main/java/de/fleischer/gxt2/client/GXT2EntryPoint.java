@@ -8,17 +8,22 @@ import java.util.List;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.data.BaseModel;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.extjs.gxt.ui.client.event.Events;
+import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.Viewport;
-import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.menu.Menu;
+import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
+
+import de.fleischer.gxt2.client.button.ConfigurationButton;
 
 
 public class GXT2EntryPoint implements EntryPoint {
@@ -78,8 +83,10 @@ public class GXT2EntryPoint implements EntryPoint {
 	 * 		  Content panel
 	 */
 	private void addButtons(final ContentPanel contentPanel, final Grid<BaseModel> grid) {
+		List<ConfigurationButton> configurationButtons = new ArrayList<ConfigurationButton>();
+		
 		// Create button and add selection listener to reconfigure grid columns
-		Button button = new Button("Configuration 1");
+		ConfigurationButton button = new ConfigurationButton("Configuration 1");
 		button.addSelectionListener(new SelectionListener<ButtonEvent>() {
 			
 			@Override
@@ -89,11 +96,12 @@ public class GXT2EntryPoint implements EntryPoint {
 			}
 		});
 		
-		// Add button to content panel
+		// Add button to content panel and configuration button list
 		contentPanel.addButton(button);
+		configurationButtons.add(button);
 		
 		// Create button and add selection listener to reconfigure grid columns
-		button = new Button("Configuration 2");
+		button = new ConfigurationButton("Configuration 2");
 		button.addSelectionListener(new SelectionListener<ButtonEvent>() {
 			
 			@Override
@@ -103,11 +111,12 @@ public class GXT2EntryPoint implements EntryPoint {
 			}
 		});
 		
-		// Add button to content panel
+		// Add button to content panel and configuration button list
 		contentPanel.addButton(button);
+		configurationButtons.add(button);
 		
 		// Create button and add selection listener to reconfigure grid columns
-		button = new Button("Reset");
+		button = new ConfigurationButton("Reset");
 		button.addSelectionListener(new SelectionListener<ButtonEvent>() {
 			
 			@Override
@@ -125,6 +134,49 @@ public class GXT2EntryPoint implements EntryPoint {
 		
 		// Add button to content panel
 		contentPanel.addButton(button);
+		
+		// Create button with menu
+		button = new ConfigurationButton("Menu Button");
+		button.setMenu(new Menu());
+		
+		// Add button to content panel
+		contentPanel.addButton(button);
+		
+		// Add buttons configuration buttons as menu entries
+		addMenuEntires(button.getMenu(), configurationButtons);
+	}
+	
+	/**
+	 * Create menu entry for each button and add it to the menu.
+	 * 
+	 * @param menu
+	 * 		  Menu
+	 * 
+	 * @param buttons
+	 * 		  Buttons which shall be added
+	 */
+	private void addMenuEntires(Menu menu, List<ConfigurationButton> buttons) {
+		// Create menu entry for each button
+		MenuItem menuItem;
+		for (final ConfigurationButton button : buttons) {
+			// Create new menu entry
+			menuItem = new MenuItem(button.getHtml());
+			
+			// Add listener to delegate selection to button
+			menuItem.addSelectionListener(new SelectionListener<MenuEvent>() {
+
+				@Override
+				public void componentSelected(MenuEvent ce) {
+					button.fireEvent(Events.Select);
+				}
+			});
+			
+			// Add menu entry to button
+			button.setMenuEntry(menuItem);
+			
+			// Add menu entry to menu
+			menu.add(menuItem);
+		}
 	}
 	
 	/**
